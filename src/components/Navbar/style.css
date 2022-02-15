@@ -1,0 +1,45 @@
+fieldset {
+  position: absolute;
+  width: 630px;
+  height: 54px;
+  left: 305px;
+  top: 179px;
+  border: 1px solid #ec0344;
+  border-radius: 5px;
+}
+
+legend {
+  height: 16px;
+  font-size: 18px;
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-style: normal;
+  color: #ec0344;
+  line-height: 16px;
+}
+
+.logoBuscar {
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  left: 550px;
+}
+.logoFavoritos {
+  position: absolute;
+  right: 25%;
+  top: 30%;
+  bottom: 11.54%;
+}
+
+p {
+  position: absolute;
+  height: 16px;
+  left: 1032px;
+  top: 200px;
+  color: #ec0344;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
