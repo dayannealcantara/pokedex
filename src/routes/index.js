@@ -1,10 +1,10 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import ListPokemon from '../page/ListPokemon'
+import Home from '../page/Home'
 
 const routes = () =>  (
     <Routes>
-      <Route path="/" element={<ListPokemon />} />
+      <Route path="/" element={<Home />} />
       {/* <Route path="/pokemon" element={} /> */}
     </Routes>
   );
