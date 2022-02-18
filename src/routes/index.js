@@ -1,13 +1,15 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from '../page/Home'
+import Home from '../page/Home';
+import Pokemon from '../page/Pokemon';
 
-const routes = () =>  (
+function routes() {
+  return (
     <Routes>
       <Route path="/" element={<Home />} />
-      {/* <Route path="/pokemon" element={} /> */}
+      <Route path="pokemon/:name" element={<Pokemon />} />
     </Routes>
   );
-
+}
 
 export default routes;
