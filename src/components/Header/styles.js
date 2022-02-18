@@ -2,9 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-
   justify-content: center;
-
   border-top: 15px solid #ec0344;
 `;
 export const Wrapper = styled.div`
@@ -13,6 +11,7 @@ export const Wrapper = styled.div`
   max-width: 1024px;
   width: 100%;
   padding-top: 60px;
+  margin: 0 72px;
   justify-content: space-between;
 `;
 export const ContainerTitle = styled.div`
