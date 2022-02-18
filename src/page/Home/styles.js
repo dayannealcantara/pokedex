@@ -10,13 +10,13 @@ export const Wrapper = styled.div`
   flex-direction: column;
   max-width: 1024px;
   width: 100%;
-  margin-top: 72px;
+  margin: 72px 72px 0px 72px;
   align-items: center;
   gap: 72px;
 `;
 
 export const Fieldset = styled.fieldset`
-  width: 630px;
+  width: 70%;
   height: 54px;
   border: 2px solid #ec0344;
   border-radius: 5px;
@@ -81,6 +81,7 @@ export const SearchContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 4rem;
+  justify-content: space-between;
 
   @media (max-width: 500px) : {
     width: 100%;
@@ -89,11 +90,11 @@ export const SearchContainer = styled.div`
 `;
 
 export const PokemonsContainer = styled.div`
-flex: 1;
-display: grid;
-width: 100%;
-grid-template-columns: repeat(5, 18%);
-gap: 20px;
+  flex: 1;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, 18%);
+  gap: 25px;
 
   @media (max-width: 500px) : {
     width: 100%;

@@ -26,8 +26,6 @@ function ListPokemon({ getQuery }) {
   const [pokemonSearch, setPokemonSearch] = useState('');
   const [pokemonsOffsetApi, setPokemonsOffsetApi] = useState(NUMBER_POKEMONS);
 
-
-
   const handleSearchPokemons = useCallback(async () => {
     const response = await api.get(`/pokemon?limit=${NUMBER_MAX_POKEMONS_API}`);
 
@@ -108,4 +106,6 @@ function ListPokemon({ getQuery }) {
     </Container>
   );
 }
+
+
 export default ListPokemon;
