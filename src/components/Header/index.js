@@ -1,21 +1,20 @@
 import React from 'react';
-import {Container, Logo, Title, Wrapper, ContainerTitle} from './styles';
+import { Container, Logo, Title, Wrapper, ContainerTitle } from './styles';
 
-import Vector from "../../imagens/Vector.png"
-import Switch from "../Switch"
+import Vector from '../../imagens/Vector.png';
+import Switch from '../Switch';
 
-function Header() {
+function Header({ color = '#ec0344' }) {
   return (
-      <Container>
-          <Wrapper >
-            <ContainerTitle>
+    <Container color={color}>
+      <Wrapper>
+        <ContainerTitle>
           <Logo src={Vector} alt="logoIoasys" />
           <Title>ioasys pokédex</Title>
-          </ContainerTitle>
-          <Switch /> 
-          </Wrapper>
-      </Container>
-   
+        </ContainerTitle>
+        <Switch />
+      </Wrapper>
+    </Container>
   );
 }
 export default Header;
