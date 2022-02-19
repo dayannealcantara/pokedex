@@ -1,30 +1,32 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import pokeball from '../../imagens/Pokeball.png';
+import { lighten } from 'polished';
+import pokeball from '../../assets/pokeball.png';
+import theme from '../../styles/theme';
 
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 89.2%;
+  height: 83.8%;
   padding-top: 60px;
+  gap: 10%;
 `;
 export const PokemonsContainer = styled.div`
   display: flex;
   width: 30%;
   height: 100%;
   background-image: url(${pokeball});
-  background-color: #74cb48;
-  /* justify-content: flex-end; */
+  background-color: ${({ color }) => color};
   flex-direction: column;
 `;
 export const ImagePokemon = styled.img`
-  display: block;
-  position: absolute;
-  left: 9%;
+  display: flex;
+
+  margin-left: 25%;
   height: 400px;
   width: 400px;
-  margin-top: 50px;
 `;
+
 export const TitleContainer = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -45,9 +47,149 @@ export const GoBack = styled(Link)`
   text-transform: ;
   color: #ffffff;
   text-transform: none;
-
   font-weight: 600;
   font-size: 16px;
   line-height: 21px;
   gap: 12px;
+`;
+
+export const DataPokemon = styled.div`
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+
+  div {
+    display: flex;
+  }
+`;
+
+export const ContainerTitle = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const TitlePokemon = styled.p`
+  font-size: 24px;
+
+  font-weight: 700;
+  line-height: 32px;
+
+  text-transform: capitalize;
+  color: ${({ color }) => color};
+  margin-right: 25px;
+`;
+
+export const IdPokemon = styled.p`
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 32px;
+  color: ${({ color }) => color};
+`;
+
+export const DataContent = styled.div`
+  display: flex;
+  align-items: center;
+  color: #212121;
+  font-size: 14px;
+  line-height: 16px;
+  gap: 8px;
+`;
+
+export const ContainerType = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export const PokemonType = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 2px 8px;
+  background: ${({ color }) => color};
+  border-radius: 10px;
+
+  span {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    color: #ffffff;
+    text-transform: capitalize;
+  }
+`;
+
+export const ContainerContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+`;
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  span {
+    color: #b3b3b3;
+    padding-top: 12px;
+    font-size: 12px;
+    line-height: 12px;
+    text-align: center;
+  }
+`;
+
+export const TitleCharacters = styled.div`
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 16px;
+  color: ${({ color }) => color};
+  margin-button: 20px;
+`;
+
+export const Row = styled.div``;
+
+export const ContainerCaracter = styled.div``;
+
+export const ContainerStats = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+export const RowStats = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  strong {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 22px;
+    color: ${({ color }) => color};
+    width: 150px;
+    border-right: 2px solid #e0e0e0;
+  }
+
+  > span {
+    font-size: 22px;
+    line-height: 25px;
+    color: ${theme.colors.text.gray};
+    width: 100px;
+    text-align: center;
+  }
+`;
+
+export const BarStatus = styled.div`
+  display: flex;
+  width: 100%;
+  height: 6px;
+  background-color: ${props => lighten(0.2, props.color)};
+  border-radius: 2px;
+
+  span {
+    width: ${props => props.percentage}%;
+    height: 100%;
+    background: ${props => props.color};
+  }
 `;
