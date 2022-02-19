@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PokemonCard from '../../components/PokemonCard';
+import Header from '../../components/Header';
 import api from '../../services/api';
 
 import {
@@ -32,7 +33,7 @@ function ListPokemon({ getQuery }) {
     setPokemonSearch(pokemonSearch.toLocaleLowerCase());
     // Valida nomes dos pokémons constam no valor da variável pokemonSearch
     const pokemonsSearch = response.data.results.filter(({ name }) =>
-      name.includes(pokemonSearch)
+      name.includes(pokemonSearch),
     );
     setPokemons(pokemonsSearch);
   }, [pokemonSearch]);
@@ -48,7 +49,7 @@ function ListPokemon({ getQuery }) {
   }, []);
 
   const handleMorePokemons = useCallback(
-    async (offset) => {
+    async offset => {
       const response = await api.get(`/pokemon`, {
         params: {
           limit: NUMBER_POKEMONS,
@@ -56,10 +57,10 @@ function ListPokemon({ getQuery }) {
         },
       });
 
-      setPokemons((state) => [...state, ...response.data.results]);
-      setPokemonsOffsetApi((state) => state + NUMBER_POKEMONS);
+      setPokemons(state => [...state, ...response.data.results]);
+      setPokemonsOffsetApi(state => state + NUMBER_POKEMONS);
     },
-    [NUMBER_POKEMONS]
+    [NUMBER_POKEMONS],
   );
 
   useEffect(() => {
@@ -71,41 +72,43 @@ function ListPokemon({ getQuery }) {
   }, [pokemonSearch, handlePokemonsListDefault, handleSearchPokemons]);
 
   return (
-    <Container>
-      <Wrapper>
-        <SearchContainer>
-          <Fieldset>
-            <Legend>Buscar</Legend>
-            <Buscar
-              type="text"
-              placeholder={'Busque seu Pokemon'}
-              value={pokemonSearch}
-              onChange={(e) => setPokemonSearch(e.target.value)}
-            />
-            <LogoBuscar src={Logopesquisar} alt="logo de pesquisa" />
-          </Fieldset>
-          <ContainerMenu>
-            <LogoFavoritos src={Logofavoritos} alt="logo favoritos" />
-            <TextFavorito>Meus Favoritos</TextFavorito>
-          </ContainerMenu>
-        </SearchContainer>
-        <PokemonsContainer>
-          {pokemons.map((pokemon) => (
-            <PokemonCard key={pokemon.name} name={pokemon.name} />
-          ))}
-        </PokemonsContainer>
-        {pokemonSearch.length <= 2 && (
-          <button
-            type="button"
-            onClick={() => handleMorePokemons(pokemonsOffsetApi)}
-          >
-            CARREGAR MAIS
-          </button>
-        )}
-      </Wrapper>
-    </Container>
+    <>
+      <Header />
+      <Container>
+        <Wrapper>
+          <SearchContainer>
+            <Fieldset>
+              <Legend>Buscar</Legend>
+              <Buscar
+                type="text"
+                placeholder={'Busque seu Pokemon'}
+                value={pokemonSearch}
+                onChange={e => setPokemonSearch(e.target.value)}
+              />
+              <LogoBuscar src={Logopesquisar} alt="logo de pesquisa" />
+            </Fieldset>
+            <ContainerMenu>
+              <LogoFavoritos src={Logofavoritos} alt="logo favoritos" />
+              <TextFavorito>Meus Favoritos</TextFavorito>
+            </ContainerMenu>
+          </SearchContainer>
+          <PokemonsContainer>
+            {pokemons.map(pokemon => (
+              <PokemonCard key={pokemon.name} name={pokemon.name} />
+            ))}
+          </PokemonsContainer>
+          {pokemonSearch.length <= 2 && (
+            <button
+              type="button"
+              onClick={() => handleMorePokemons(pokemonsOffsetApi)}
+            >
+              CARREGAR MAIS
+            </button>
+          )}
+        </Wrapper>
+      </Container>
+    </>
   );
 }
-
 
 export default ListPokemon;
