@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Container } from './styles';
+import { useTheme } from '../../hooks/ThemeContext';
 
 function Header() {
   const [isChecked, setIsChecked] = useState(false);
 
-  const handleChangeToggle = (e) => {
+  const { toggleTheme } = useTheme();
+
+  const handleChangeToggle = e => {
     setIsChecked(e.target.checked);
   };
   const toggleChecked = () => {
+    toggleTheme();
     setIsChecked(!isChecked);
   };
 
@@ -30,4 +34,5 @@ function Header() {
     </Container>
   );
 }
+
 export default Header;
