@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-  border-top: 15px solid #ec0344;
+  border-top: 15px solid ${({ color }) => color};
 `;
 export const Wrapper = styled.div`
   display: flex;
