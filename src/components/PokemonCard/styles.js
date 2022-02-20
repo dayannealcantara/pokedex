@@ -7,10 +7,10 @@ export const Container = styled(Link)`
   height: 150px;
   width: inherit;
   border-radius: 13px;
-  background: #fff;
+  background: ${props => props.theme.colors.card};
   box-shadow: 1px 3px 12px 0 rgba(0, 0, 0, 0.3);
   transition: all ease 0.5s;
-  border: 2px solid ${(props) => props.color};
+  border: 2px solid ${props => props.color};
 `;
 
 export const Pokemon = styled.div`
@@ -32,12 +32,12 @@ export const PokemonNumber = styled.span`
   width: 85%;
   padding-top: 5px;
   text-align: right;
-  color: ${(props) => props.color};
+  color: ${props => props.color};
 `;
 
 export const ContainerPokemonName = styled.div`
   display: flex;
-  background: ${(props) => props.color};
+  background: ${props => props.color};
   width: 100%;
   height: 100%;
   font-size: 13.1068px;

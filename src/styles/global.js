@@ -19,7 +19,7 @@ export default createGlobalStyle`
   }
   body {
     -webkit-font-smoothing: antialiased;
-    background-color: #E5E5E5;
+    background-color: ${props => props.theme.colors.primary};
   }
   a {
     text-decoration: none;
