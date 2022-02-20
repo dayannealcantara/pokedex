@@ -1,18 +1,18 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { firstTheme, secondTheme } from '../styles/theme';
+import { lightTheme, darkTheme } from '../styles/theme';
 const ThemeContext = createContext({});
 
 export const useTheme = () => useContext(ThemeContext);
 
 export const CustomThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(firstTheme);
+  const [theme, setTheme] = useState(lightTheme);
 
   const toggleTheme = useCallback(() => {
     if (theme.name === 'first') {
-      setTheme(secondTheme);
+      setTheme(darkTheme);
     } else if (theme.name === 'second') {
-      setTheme(firstTheme);
+      setTheme(lightTheme);
     }
   }, [theme]);
 
