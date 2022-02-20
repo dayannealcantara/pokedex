@@ -1,16 +1,17 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
-import Header from './components/Header';
-import GlobalStyle from './styles/global'
+import GlobalStyle from './styles/global';
+import { CustomThemeProvider } from './hooks/ThemeContext';
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <Routes />
-      <GlobalStyle />
-      </BrowserRouter>
+      <CustomThemeProvider>
+        <Routes />
+        <GlobalStyle />
+      </CustomThemeProvider>
+    </BrowserRouter>
   );
 }
 
