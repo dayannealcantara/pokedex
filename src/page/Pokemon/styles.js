@@ -90,10 +90,14 @@ export const IdPokemon = styled.p`
 export const DataContent = styled.div`
   display: flex;
   align-items: center;
-  color: #212121;
+  color: ${props => props.theme.colors.fontPokemon};
   font-size: 14px;
   line-height: 16px;
   gap: 8px;
+
+  path {
+    fill: ${props => props.theme.colors.fontPokemon};
+  }
 `;
 
 export const ContainerType = styled.div`
