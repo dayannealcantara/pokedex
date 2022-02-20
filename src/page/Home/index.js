@@ -18,6 +18,7 @@ import {
 } from './styles';
 import Logopesquisar from '../../imagens/pesqui.png';
 import Logofavoritos from '../../imagens/curtir.png';
+import Error from '../../components/Helper/Error';
 
 function ListPokemon({ getQuery }) {
   const NUMBER_POKEMONS = 15;
@@ -31,14 +32,13 @@ function ListPokemon({ getQuery }) {
     const response = await api.get(`/pokemon?limit=${NUMBER_MAX_POKEMONS_API}`);
 
     setPokemonSearch(pokemonSearch.toLocaleLowerCase());
-    // Valida nomes dos pokémons constam no valor da variável pokemonSearch
+
     const pokemonsSearch = response.data.results.filter(({ name }) =>
       name.includes(pokemonSearch),
     );
     setPokemons(pokemonsSearch);
   }, [pokemonSearch]);
 
-  // Carrega uma lista inicial de pokémons
   const handlePokemonsListDefault = useCallback(async () => {
     const response = await api.get('/pokemon', {
       params: {
@@ -64,7 +64,6 @@ function ListPokemon({ getQuery }) {
   );
 
   useEffect(() => {
-    // A busca é só feita quando a string tiver 2 ou mais caracteres
     const isSearch = pokemonSearch.length >= 2;
 
     if (isSearch) handleSearchPokemons();
@@ -92,12 +91,16 @@ function ListPokemon({ getQuery }) {
               <TextFavorito>Meus Favoritos</TextFavorito>
             </ContainerMenu>
           </SearchContainer>
-          <PokemonsContainer>
-            {pokemons.map(pokemon => (
-              <PokemonCard key={pokemon.name} name={pokemon.name} />
-            ))}
-          </PokemonsContainer>
-          {pokemonSearch.length <= 2 && (
+          {pokemons.length === 0 ? (
+            <Error />
+          ) : (
+            <PokemonsContainer>
+              {pokemons.map(pokemon => (
+                <PokemonCard key={pokemon.name} name={pokemon.name} />
+              ))}
+            </PokemonsContainer>
+          )}
+          {pokemons.length === 0 && pokemonSearch.length <= 2 && (
             <button
               type="button"
               onClick={() => handleMorePokemons(pokemonsOffsetApi)}
