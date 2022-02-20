@@ -11,17 +11,16 @@ export const Container = styled.div`
 
     input {
       display: none;
+
       &:checked + .slider {
-       
       }
       &:checked + .slider:before {
         transform: translateX(15px);
       }
       &:focus + .slider {
-        box-shadow: 0 0 1px #EC0344;
+        box-shadow: 0 0 1px #ec0344;
       }
     }
-
   }
   label {
     line-height: 34px;
@@ -30,8 +29,10 @@ export const Container = styled.div`
   }
 
   .slider {
+    background-color: ${props => props.theme.colors.primary};
     position: absolute;
     top: 0;
+
     left: 0;
     right: 0;
     bottom: 0;
@@ -40,7 +41,7 @@ export const Container = styled.div`
     outline: none;
     transition: 0.4s;
     border-radius: 34px;
-    border: 1px solid #EC0344;
+    border: 1px solid #ec0344;
     cursor: pointer;
     &:before {
       position: absolute;
@@ -49,7 +50,8 @@ export const Container = styled.div`
       width: 15px;
       left: 4px;
       bottom: 5px;
-      background-color: ${({ isChecked }) => (isChecked ? '#8D8B92' : '#EC0344')};
+      background-color: ${({ isChecked }) =>
+        isChecked ? '#8D8B92' : '#EC0344'};
       transition: 0.4s;
       border-radius: 50%;
     }
