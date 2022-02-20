@@ -64,6 +64,24 @@ const theme = {
       heavy: '#5A92A5',
     },
   },
-}
+};
 
 export default theme;
+
+export const lightTheme = {
+  name: 'first',
+  colors: {
+    primary: '#E5E5E5',
+    card: '#FFFFFF',
+    fontPokemon: '#212121',
+  },
+};
+
+export const darkTheme = {
+  name: 'second',
+  colors: {
+    primary: '#212121',
+    card: '#212121',
+    fontPokemon: '#FFFFFF',
+  },
+};
