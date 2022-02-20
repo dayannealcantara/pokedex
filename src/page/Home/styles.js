@@ -42,7 +42,7 @@ export const LogoBuscar = styled.img`
 export const Buscar = styled.input`
   width: 100%;
   height: 100%;
-  background-color: #e5e5e5;
+  background-color: ${props => props.theme.colors.primary};
   border: none;
   outline: none;
 `;
