@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   display: flex;
@@ -58,7 +59,7 @@ export const TextFavorito = styled.p`
   line-height: 16px;
 `;
 
-export const ContainerMenu = styled.div`
+export const ContainerMenu = styled(Link)`
   display: flex;
   flex-direction: row;
   align-items: center;
