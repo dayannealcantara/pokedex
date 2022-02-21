@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import PokemonCard from '../../components/PokemonCard';
 import Header from '../../components/Header';
 import api from '../../services/api';
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   Container,
   Wrapper,
@@ -21,9 +21,8 @@ import Logofavoritos from '../../imagens/curtir.png';
 import Error from '../../components/Helper/Error';
 
 function ListPokemon({ getQuery }) {
-  const NUMBER_POKEMONS = 15;
+  const NUMBER_POKEMONS = 30;
   const NUMBER_MAX_POKEMONS_API = 750;
-
   const [pokemons, setPokemons] = useState([]);
   const [pokemonSearch, setPokemonSearch] = useState('');
   const [pokemonsOffsetApi, setPokemonsOffsetApi] = useState(NUMBER_POKEMONS);
@@ -48,20 +47,19 @@ function ListPokemon({ getQuery }) {
     setPokemons(response.data.results);
   }, []);
 
-  const handleMorePokemons = useCallback(
-    async offset => {
-      const response = await api.get(`/pokemon`, {
-        params: {
-          limit: NUMBER_POKEMONS,
-          offset,
-        },
-      });
-
-      setPokemons(state => [...state, ...response.data.results]);
-      setPokemonsOffsetApi(state => state + NUMBER_POKEMONS);
-    },
-    [NUMBER_POKEMONS],
-  );
+  const PlusPokemons = () => {
+    console.log('teste');
+    // setTimeout(async () => {
+    //   const response = await api.get(`/pokemon`, {
+    //     params: {
+    //       limit: NUMBER_POKEMONS,
+    //       offset: pokemonsOffsetApi,
+    //     },
+    //   });
+    //   setPokemons(state => [...state, ...response.data.results]);
+    setPokemonsOffsetApi((pokemonsOffsetApi += NUMBER_POKEMONS));
+    // }, 500);
+  };
 
   useEffect(() => {
     const isSearch = pokemonSearch.length >= 2;
@@ -86,28 +84,42 @@ function ListPokemon({ getQuery }) {
               />
               <LogoBuscar src={Logopesquisar} alt="logo de pesquisa" />
             </Fieldset>
-            <ContainerMenu>
+            <ContainerMenu to="meus-favoritos">
               <LogoFavoritos src={Logofavoritos} alt="logo favoritos" />
               <TextFavorito>Meus Favoritos</TextFavorito>
             </ContainerMenu>
           </SearchContainer>
-          {pokemons.length === 0 ? (
+          {pokemonSearch.length >= 2 && pokemons.length === 0 ? (
             <Error />
           ) : (
+            // <div
+            //   id="scrollableDiv"
+            //   style={{
+            //     width: '100%',
+            //   }}
+            // >
+            //   <InfiniteScroll
+            //     dataLength={pokemonsOffsetApi.length}
+            //     next={PlusPokemons()}
+            //     hasMore={true}
+            //     loader={<h4>Loading...</h4>}
+            //   >
             <PokemonsContainer>
               {pokemons.map(pokemon => (
                 <PokemonCard key={pokemon.name} name={pokemon.name} />
               ))}
             </PokemonsContainer>
+            //   </InfiniteScroll>
+            // </div>
           )}
-          {pokemons.length === 0 && pokemonSearch.length <= 2 && (
+          {/* {pokemons.length === 0 && pokemonSearch.length <= 2 && (
             <button
               type="button"
               onClick={() => handleMorePokemons(pokemonsOffsetApi)}
             >
               CARREGAR MAIS
             </button>
-          )}
+          )} */}
         </Wrapper>
       </Container>
     </>
