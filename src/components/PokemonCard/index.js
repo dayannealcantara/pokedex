@@ -34,7 +34,7 @@ const PokemonCard = ({ name }) => {
   }, [name, colors]);
 
   return (
-    <Container to={`pokemon/${name}`} color={pokemon.backgroundColor}>
+    <Container to={`/pokemon/${name}`} color={pokemon.backgroundColor}>
       <Pokemon>
         <PokemonNumber color={pokemon.backgroundColor}>
           {pokemon.number}
