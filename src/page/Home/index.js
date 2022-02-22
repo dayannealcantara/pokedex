@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PokemonCard from '../../components/PokemonCard';
 import Header from '../../components/Header';
 import api from '../../services/api';
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   Container,
   Wrapper,
@@ -19,13 +19,15 @@ import {
 import Logopesquisar from '../../imagens/pesqui.png';
 import Logofavoritos from '../../imagens/curtir.png';
 import Error from '../../components/Helper/Error';
+import useDebounce from '../../hooks/useDebounce';
 
-function ListPokemon({ getQuery }) {
-  const NUMBER_POKEMONS = 15;
+function ListPokemon() {
+  const NUMBER_POKEMONS = 25;
   const NUMBER_MAX_POKEMONS_API = 750;
-
   const [pokemons, setPokemons] = useState([]);
+  const [pokemonValueInput, setPokemonValueInput] = useState('');
   const [pokemonSearch, setPokemonSearch] = useState('');
+  const debounce = useDebounce(setPokemonSearch, 700);
   const [pokemonsOffsetApi, setPokemonsOffsetApi] = useState(NUMBER_POKEMONS);
 
   const handleSearchPokemons = useCallback(async () => {
@@ -48,20 +50,25 @@ function ListPokemon({ getQuery }) {
     setPokemons(response.data.results);
   }, []);
 
-  const handleMorePokemons = useCallback(
-    async offset => {
+  const handleChangeSearch = useCallback(e => {
+    setPokemonValueInput(e.target.value)
+    debounce(e.target.value)
+  },[] );
+  
+
+  const PlusPokemons =async () => {
+   
+  
       const response = await api.get(`/pokemon`, {
         params: {
           limit: NUMBER_POKEMONS,
-          offset,
+          offset: pokemonsOffsetApi,
         },
       });
-
       setPokemons(state => [...state, ...response.data.results]);
-      setPokemonsOffsetApi(state => state + NUMBER_POKEMONS);
-    },
-    [NUMBER_POKEMONS],
-  );
+    setPokemonsOffsetApi((pokemonsOffsetApi + 10));
+  
+  };
 
   useEffect(() => {
     const isSearch = pokemonSearch.length >= 2;
@@ -81,32 +88,38 @@ function ListPokemon({ getQuery }) {
               <Buscar
                 type="text"
                 placeholder={'Busque seu Pokemon'}
-                value={pokemonSearch}
-                onChange={e => setPokemonSearch(e.target.value)}
+                value={pokemonValueInput}
+                onChange={handleChangeSearch}
               />
               <LogoBuscar src={Logopesquisar} alt="logo de pesquisa" />
             </Fieldset>
-            <ContainerMenu>
+            <ContainerMenu to="meus-favoritos">
               <LogoFavoritos src={Logofavoritos} alt="logo favoritos" />
               <TextFavorito>Meus Favoritos</TextFavorito>
             </ContainerMenu>
           </SearchContainer>
-          {pokemons.length === 0 ? (
+          {pokemonSearch.length >= 2 && pokemons.length === 0 ? (
             <Error />
           ) : (
+            <div
+              id="scrollableDiv"
+              style={{
+                width: '100%',
+              }}
+            >
+              <InfiniteScroll
+                dataLength={pokemonsOffsetApi}
+                next={PlusPokemons}
+                hasMore={true}
+                loader={<h4>Loading...</h4>}
+              >
             <PokemonsContainer>
               {pokemons.map(pokemon => (
                 <PokemonCard key={pokemon.name} name={pokemon.name} />
               ))}
             </PokemonsContainer>
-          )}
-          {pokemons.length === 0 && pokemonSearch.length <= 2 && (
-            <button
-              type="button"
-              onClick={() => handleMorePokemons(pokemonsOffsetApi)}
-            >
-              CARREGAR MAIS
-            </button>
+               </InfiniteScroll>
+            </div>
           )}
         </Wrapper>
       </Container>
