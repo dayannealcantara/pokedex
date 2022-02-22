@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import { ReactComponent as BackIcon } from '../../imagens/back.svg';
 import PokemonCard from '../../components/PokemonCard';
 import Header from '../../components/Header';
@@ -16,9 +16,26 @@ import {
 } from './styles';
 
 import Logofavoritos from '../../imagens/curtir.png';
+import { FavoritesContext } from '../../contexts/favorites';
 
-function Favoritos({ getQuery }) {
-  const [pokemons, setPokemons] = useState([]);
+function Favoritos() {
+  const { pokemons } = useContext(FavoritesContext);
+
+
+
+
+  const PokemonVazio = useMemo(() => {
+
+    if(pokemons.length < 12){
+      const listPokeVazio = new Array( 12 - pokemons.length ).fill(undefined); 
+      return (<>
+         {listPokeVazio.map(row => <div key={row}>teste</div>) } 
+      </>)
+    }
+    return <></>
+  },[pokemons])
+
+
 
   return (
     <>
@@ -38,12 +55,11 @@ function Favoritos({ getQuery }) {
           </SearchContainer>
 
           <PokemonsContainer>
-            {pokemons.map(pokemon => (
-              <PokemonCard key={pokemon.name} name={pokemon.name} />
+            {pokemons?.map(pokemon => (
+              
+              <PokemonCard  key={pokemon.name} name={pokemon.name} />
             ))}
-            {pokemons.length <= 12
-              ? new Array(12).map(row => <div>teste, {row}</div>)
-              : null}
+            {PokemonVazio}
           </PokemonsContainer>
         </Wrapper>
       </Container>
