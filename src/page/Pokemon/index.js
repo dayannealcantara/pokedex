@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ReactComponent as BackIcon } from '../../imagens/back.svg';
 import { ReactComponent as KgIcon } from '../../assets/iconPokemon/kg.svg';
 import { ReactComponent as AltIcon } from '../../assets/iconPokemon/alt.svg';
+import { ReactComponent as CoracaoIcon } from '../../assets/coracao.svg';
 import Header from '../../components/Header';
 import { useParams } from 'react-router-dom';
 import api from '../../services/api';
@@ -28,12 +29,14 @@ import {
   BarStatus,
 } from './styles';
 import theme from '../../styles/theme';
+import { FavoritesContext } from '../../contexts/favorites';
 
 function Pokemon() {
   const { colors } = theme;
+  const { togglePokemon, isMarked, pokemons } = useContext(FavoritesContext);
   const { name } = useParams();
-
   const [pokemon, setPokemon] = useState({});
+  const [curti, setCurti,] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState('normal');
 
   const baseStatsName = ['HP', 'ATK', 'DEF', 'SATK', 'SDEF', 'SPD'];
@@ -82,10 +85,20 @@ function Pokemon() {
         })),
       });
     });
+
+    
   }, [name, colors]);
 
-  console.log(pokemon);
+  const onClickFavoritos = () => {
+   setCurti(!curti)
+   togglePokemon({...pokemon, name})
+  }
+  
+   useEffect(() => {
+    setCurti(isMarked(pokemon));
+  },[pokemons, pokemon, isMarked])
 
+ 
   return (
     <>
       <Header color={backgroundColor} />
@@ -101,7 +114,10 @@ function Pokemon() {
           <ImagePokemon src={pokemon.image} alt={`Imagem do pokémon ${name}`} />
         </PokemonsContainer>
         <DataPokemon>
-          <ContainerTitle>
+          <ContainerTitle curti={curti} >
+            <a onClick={onClickFavoritos}>
+          <CoracaoIcon />
+            </a>
             <TitlePokemon color={backgroundColor}>
               {pokemon.specie}
             </TitlePokemon>
@@ -136,7 +152,7 @@ function Pokemon() {
               <span>Moves</span>
             </Content>
           </ContainerContent>
-          <ContainerCaracter></ContainerCaracter>
+          <ContainerCaracter>There is a plant seed on its back right from the day this Pokémon is born. The seed slowly grows larger.</ContainerCaracter>
           <ContainerStats>
             <TitleCharacters color={backgroundColor}>
               Base Stats
