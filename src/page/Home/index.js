@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PokemonCard from '../../components/PokemonCard';
 import Header from '../../components/Header';
 import api from '../../services/api';
@@ -19,12 +19,15 @@ import {
 import Logopesquisar from '../../imagens/pesqui.png';
 import Logofavoritos from '../../imagens/curtir.png';
 import Error from '../../components/Helper/Error';
+import useDebounce from '../../hooks/useDebounce';
 
-function ListPokemon({ getQuery }) {
-  const NUMBER_POKEMONS = 30;
+function ListPokemon() {
+  const NUMBER_POKEMONS = 25;
   const NUMBER_MAX_POKEMONS_API = 750;
   const [pokemons, setPokemons] = useState([]);
+  const [pokemonValueInput, setPokemonValueInput] = useState('');
   const [pokemonSearch, setPokemonSearch] = useState('');
+  const debounce = useDebounce(setPokemonSearch, 700);
   const [pokemonsOffsetApi, setPokemonsOffsetApi] = useState(NUMBER_POKEMONS);
 
   const handleSearchPokemons = useCallback(async () => {
@@ -47,18 +50,24 @@ function ListPokemon({ getQuery }) {
     setPokemons(response.data.results);
   }, []);
 
-  const PlusPokemons = () => {
-    console.log('teste');
-    // setTimeout(async () => {
-    //   const response = await api.get(`/pokemon`, {
-    //     params: {
-    //       limit: NUMBER_POKEMONS,
-    //       offset: pokemonsOffsetApi,
-    //     },
-    //   });
-    //   setPokemons(state => [...state, ...response.data.results]);
-    setPokemonsOffsetApi((pokemonsOffsetApi += NUMBER_POKEMONS));
-    // }, 500);
+  const handleChangeSearch = useCallback(e => {
+    setPokemonValueInput(e.target.value)
+    debounce(e.target.value)
+  },[] );
+  
+
+  const PlusPokemons =async () => {
+   
+  
+      const response = await api.get(`/pokemon`, {
+        params: {
+          limit: NUMBER_POKEMONS,
+          offset: pokemonsOffsetApi,
+        },
+      });
+      setPokemons(state => [...state, ...response.data.results]);
+    setPokemonsOffsetApi((pokemonsOffsetApi + 10));
+  
   };
 
   useEffect(() => {
@@ -79,8 +88,8 @@ function ListPokemon({ getQuery }) {
               <Buscar
                 type="text"
                 placeholder={'Busque seu Pokemon'}
-                value={pokemonSearch}
-                onChange={e => setPokemonSearch(e.target.value)}
+                value={pokemonValueInput}
+                onChange={handleChangeSearch}
               />
               <LogoBuscar src={Logopesquisar} alt="logo de pesquisa" />
             </Fieldset>
@@ -92,34 +101,26 @@ function ListPokemon({ getQuery }) {
           {pokemonSearch.length >= 2 && pokemons.length === 0 ? (
             <Error />
           ) : (
-            // <div
-            //   id="scrollableDiv"
-            //   style={{
-            //     width: '100%',
-            //   }}
-            // >
-            //   <InfiniteScroll
-            //     dataLength={pokemonsOffsetApi.length}
-            //     next={PlusPokemons()}
-            //     hasMore={true}
-            //     loader={<h4>Loading...</h4>}
-            //   >
+            <div
+              id="scrollableDiv"
+              style={{
+                width: '100%',
+              }}
+            >
+              <InfiniteScroll
+                dataLength={pokemonsOffsetApi}
+                next={PlusPokemons}
+                hasMore={true}
+                loader={<h4>Loading...</h4>}
+              >
             <PokemonsContainer>
               {pokemons.map(pokemon => (
                 <PokemonCard key={pokemon.name} name={pokemon.name} />
               ))}
             </PokemonsContainer>
-            //   </InfiniteScroll>
-            // </div>
+               </InfiniteScroll>
+            </div>
           )}
-          {/* {pokemons.length === 0 && pokemonSearch.length <= 2 && (
-            <button
-              type="button"
-              onClick={() => handleMorePokemons(pokemonsOffsetApi)}
-            >
-              CARREGAR MAIS
-            </button>
-          )} */}
         </Wrapper>
       </Container>
     </>
