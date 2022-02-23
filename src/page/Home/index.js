@@ -27,6 +27,7 @@ function ListPokemon() {
   const [pokemons, setPokemons] = useState([]);
   const [pokemonValueInput, setPokemonValueInput] = useState('');
   const [pokemonSearch, setPokemonSearch] = useState('');
+  const [hasMore, setHasMore] = useState(true);
   const debounce = useDebounce(setPokemonSearch, 700);
   const [pokemonsOffsetApi, setPokemonsOffsetApi] = useState(NUMBER_POKEMONS);
 
@@ -57,7 +58,10 @@ function ListPokemon() {
   
 
   const PlusPokemons =async () => {
-   
+    if (pokemonsOffsetApi >= NUMBER_MAX_POKEMONS_API) {
+      setHasMore(false)
+      return;
+    }
   
       const response = await api.get(`/pokemon`, {
         params: {
@@ -110,8 +114,8 @@ function ListPokemon() {
               <InfiniteScroll
                 dataLength={pokemonsOffsetApi}
                 next={PlusPokemons}
-                hasMore={true}
-                loader={<h4>Loading...</h4>}
+                hasMore={hasMore}
+                loader={hasMore === <h4>Loading...</h4>}
               >
             <PokemonsContainer>
               {pokemons.map(pokemon => (
