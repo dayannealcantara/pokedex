@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { lighten } from 'polished';
-import pokeball from '../../assets/pokeball.png';
+import pokeball from '../../assets/pokeball.svg';
 import theme from '../../styles/theme';
 
 export const Container = styled.div`
@@ -15,7 +15,10 @@ export const PokemonsContainer = styled.div`
   display: flex;
   width: 30%;
   height: 100%;
-  background-image: url(${pokeball});
+  background-size: 80%;
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-image: url(${pokeball}); 
   background-color: ${({ color }) => color};
   flex-direction: column;
 `;
@@ -44,7 +47,6 @@ export const GoBack = styled(Link)`
   display: flex;
   align-items: center;
   text-align: center;
-  text-transform: ;
   color: #ffffff;
   text-transform: none;
   font-weight: 600;
@@ -67,6 +69,13 @@ export const DataPokemon = styled.div`
 export const ContainerTitle = styled.div`
   display: flex;
   align-items: center;
+  gap: 11px;
+  a{
+    cursor: pointer;
+  }
+  path {
+    fill: ${({ curti }) => curti ? "#EC0344" : null};
+  }
 `;
 
 export const TitlePokemon = styled.p`
@@ -147,12 +156,19 @@ export const TitleCharacters = styled.div`
   font-size: 18px;
   line-height: 16px;
   color: ${({ color }) => color};
-  margin-button: 20px;
+  margin-bottom: 20px;
 `;
 
 export const Row = styled.div``;
 
-export const ContainerCaracter = styled.div``;
+export const ContainerCaracter = styled.div`
+ display: flex;
+  align-items: center;
+  color: ${props => props.theme.colors.fontPokemon};
+  font-size: 14px;
+  line-height: 16px;
+
+`;
 
 export const ContainerStats = styled.div`
   display: flex;

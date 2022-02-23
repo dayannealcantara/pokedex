@@ -82,3 +82,9 @@ export const Card = styled.div`
   box-shadow: 1px 3px 12px 0 rgba(0, 0, 0, 0.3);
   transition: all ease 0.5s;
 `;
+export const PokemonCardVazio = styled.div `
+  height: 150px;
+  width: 100%;        
+  background: ${props => props.theme.colors.cardVazio};
+  border-radius: 10px;
+`

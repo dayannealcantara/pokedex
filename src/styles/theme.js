@@ -73,6 +73,7 @@ export const lightTheme = {
   colors: {
     primary: '#E5E5E5',
     card: '#FFFFFF',
+    cardVazio: '#f2f4f7',
     fontPokemon: '#212121',
   },
 };
@@ -82,6 +83,7 @@ export const darkTheme = {
   colors: {
     primary: '#212121',
     card: '#212121',
+    cardVazio: '#2F2F2F',
     fontPokemon: '#FFFFFF',
   },
 };
