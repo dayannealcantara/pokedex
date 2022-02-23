@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext } from 'react';
+import React, { useMemo, useContext } from 'react';
 import { ReactComponent as BackIcon } from '../../imagens/back.svg';
 import PokemonCard from '../../components/PokemonCard';
 import Header from '../../components/Header';
@@ -13,30 +13,27 @@ import {
   ContainerMenu,
   SearchContainer,
   PokemonsContainer,
+  PokemonCardVazio,
 } from './styles';
 
 import Logofavoritos from '../../imagens/curtir.png';
 import { FavoritesContext } from '../../contexts/favorites';
 
+
 function Favoritos() {
   const { pokemons } = useContext(FavoritesContext);
-
-
-
-
   const PokemonVazio = useMemo(() => {
 
     if(pokemons.length < 12){
       const listPokeVazio = new Array( 12 - pokemons.length ).fill(undefined); 
       return (<>
-         {listPokeVazio.map(row => <div key={row}>teste</div>) } 
+         {listPokeVazio.map(row => <PokemonCardVazio
+         key={row}></PokemonCardVazio>) } 
       </>)
     }
     return <></>
   },[pokemons])
-
-
-
+  
   return (
     <>
       <Header />
