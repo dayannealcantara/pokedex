@@ -1,11 +1,8 @@
-<h1 text-aling="center" fontSize="100px"> Pokédex </h1>
-<p align="center">
-  <img alt="Pokedex logo" src=".github/pokedexLogo.png" width="400px" />
-</p>
+# Pokédex
 
 ## 💻 Projeto
 
-Desenvolver uma plataforma web para listar e visualizar pokémons,contendo todos os dados dos pokémons como: nome, número, tipo, imagem, atributos  entre outras coisas. Essas informações foram possíveis com o uso da API REST PokéApi.
+Desenvolver uma plataforma web para listar e visualizar pokémons, na qual contenha informações dos tais como: nome, número, tipo, imagem e atributos. Essas informações foram possíveis ser adquiridas pelo uso da API REST PokéApi.
 
 O layout do projeto foi criado a partir de um desafio proposto pela equipe da trilha de Front-end do Camper da [ioasys](https://ioasys.com.br/).
 
@@ -17,33 +14,53 @@ O layout do projeto foi criado a partir de um desafio proposto pela equipe da tr
 
  - [x] **Selecionar pokémon**: Criar uma página na aplicação com mais detalhes sobre o pokémon escolhido.
 
-  [x] **Seção do pokémon Card**: Informações do pokémon, tais como: Descrição e Estatísticas
+  - [x] **Seção do pokémon Card**: Informações do pokémon, tais como: Descrição e Estatísticas
 
 - [x] **Seção Sobre**: Dados básicos sobre o pokémon, como altura, peso, fraquezas.
 
 - [x] **Seção Estatísticas**: Pontos de batalha do pokémon, como vida, ataque, defesa, velocidade, especial ataque e especial defesa.
 
 - [x] **Listagem dos pokémons favoritos**: Lista os pokémons favoritos.
+
+### Conceitos abordados
+
+- Uso de Flexbox e Grid CSS para alinhar e ajustar elementos na página.
+
+- Consumo de api com o uso da lib [axios](https://github.com/axios/axios).
+
+- Controle de paginação na listagem dos pokémons com uso da lib [infinite-scroll](https://infinite-scroll.com/).
+
+- Criando tema global de cores com o `DefaultTheme` do [styled-components](https://www.styled-components.com/).
+
+- Controle de busca por pokemón pelo uso do hook useDebouncet para ajudar a limitar que o componente seja renderizado muitas vezes.
  
-
-## :rocket: Tecnologias
-
--  [React](https://pt-br.reactjs.org/)
--  [Styled-components](https://www.styled-components.com/)
--  [React-Icons](https://react-icons.netlify.com/)
--  [Axios](https://github.com/axios/axios)
--  [React Router](https://reactrouter.com/web/guides/quick-start)
 
 ### Notas
 
-- A listagem dos pokémons foi limitada em 700, pois a partir desse número a api apresenta instaboilidade em algumas  informações.
+- A listagem dos pokémons foi limitada em 700, pois a partir desse número a api apresenta instabilidade em algumas  informações.
 
-## 📝 Licença
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
+## 📥 Instalação e execução
+
+Faça um clone desse repositório e acesse o diretório.
+
+```bash
+$ git clone git@github.com:dayannealcantara/Pokedex.git && cd pokedex
+```
+
+```bash
+# Instalando as dependências
+$ npm install
 
 # Executanto aplicação
 $ npm run start
 
+```
+
 ## 📝 Licença
 
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
+
+
+
+
+
