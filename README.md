@@ -1,7 +1,5 @@
-<h1 text-aling="center" fontSize="100px"> Pokédex </h1>
-<p align="center">
-  <img alt="Pokedex logo" src=".github/pokedexLogo.png" width="400px" />
-</p>
+<h1 > Pokédex </h1>
+
 
 ## 💻 Projeto
 
