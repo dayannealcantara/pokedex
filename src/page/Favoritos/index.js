@@ -2,7 +2,6 @@ import React, { useMemo, useContext } from 'react';
 import { ReactComponent as BackIcon } from '../../imagens/back.svg';
 import PokemonCard from '../../components/PokemonCard';
 import Header from '../../components/Header';
-import api from '../../services/api';
 
 import {
   Container,
@@ -27,9 +26,9 @@ function Favoritos() {
     if(pokemons.length < 12){
       const listPokeVazio = new Array( 12 - pokemons.length ).fill(undefined); 
       return (<>
-         {listPokeVazio.map(row => <PokemonCardVazio
-         key={row}></PokemonCardVazio>) } 
-      </>)
+         {listPokeVazio.map((row, index) => <PokemonCardVazio
+         key={index}></PokemonCardVazio>) } 
+      </>) 
     }
     return <></>
   },[pokemons])
@@ -44,7 +43,7 @@ function Favoritos() {
               <BackIcon />
               Voltar
             </GoBack>
-            <ContainerMenu to="meus-favoritos">
+            <ContainerMenu >
               <LogoFavoritos src={Logofavoritos} alt="logo favoritos" />
               <TextFavorito>Meus Favoritos</TextFavorito>
             </ContainerMenu>
@@ -52,8 +51,7 @@ function Favoritos() {
           </SearchContainer>
 
           <PokemonsContainer>
-            {pokemons?.map(pokemon => (
-              
+            {pokemons?.map(pokemon => (              
               <PokemonCard  key={pokemon.name} name={pokemon.name} />
             ))}
             {PokemonVazio}

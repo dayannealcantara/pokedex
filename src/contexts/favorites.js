@@ -28,6 +28,8 @@ export function FavoritesProvider({ children }) {
 
     copy.push(pokemon);
 
+   if(copy.length > 12) return alert('Excedeu o número de pokemóns favoritos')
+
     setPokemons(copy);
   }, [pokemons])
 
