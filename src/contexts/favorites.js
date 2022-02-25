@@ -4,6 +4,7 @@ export const FavoritesContext = createContext([]);
 
 export function FavoritesProvider({ children }) {
   const [pokemons, setPokemons] = useState([]);
+  const [curti, setCurti] = useState(false);
 
   useEffect(() => {
     const pokemonsFromLocalStorage = localStorage.getItem('pokemons')
@@ -19,9 +20,9 @@ export function FavoritesProvider({ children }) {
     const copy = [...pokemons]
 
     copy.splice(index, 1);
-
+    setCurti(!curti);
     setPokemons(copy);
-  }, [pokemons]);
+  }, [pokemons,curti]);
 
   const addPokemon = useCallback((pokemon) => {
     const copy = [...pokemons]
@@ -29,9 +30,9 @@ export function FavoritesProvider({ children }) {
     copy.push(pokemon);
 
    if(copy.length > 12) return alert('Excedeu o número de pokemóns favoritos')
-
+   setCurti(!curti)
     setPokemons(copy);
-  }, [pokemons])
+  }, [pokemons,curti])
 
   const togglePokemon = useCallback((pokemon) => {
     const pokemonIndex = pokemons?.findIndex((each) => each.id === pokemon.id)
@@ -51,6 +52,8 @@ export function FavoritesProvider({ children }) {
     <FavoritesContext.Provider value={{
       pokemons,
       setPokemons,
+      curti,
+       setCurti,
       togglePokemon,
       isMarked
     }}>
