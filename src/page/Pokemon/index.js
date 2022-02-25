@@ -33,10 +33,9 @@ import { FavoritesContext } from '../../contexts/favorites';
 
 function Pokemon() {
   const { colors } = theme;
-  const { togglePokemon, isMarked, pokemons } = useContext(FavoritesContext);
+  const { togglePokemon, isMarked, pokemons, curti,setCurti } = useContext(FavoritesContext);
   const { name } = useParams();
   const [pokemon, setPokemon] = useState({});
-  const [curti, setCurti,] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState('normal');
 
   const baseStatsName = ['HP', 'ATK', 'DEF', 'SATK', 'SDEF', 'SPD'];
@@ -46,7 +45,7 @@ function Pokemon() {
       const { id, weight, height, stats, sprites, types, abilities, species } =
         response.data;
 
-      setBackgroundColor(colors.backgroundType[types[0].type.name]);
+        setBackgroundColor(types[0].type.name);
 
       if (types[0].type.name === 'normal' && types.length > 1) {
         setBackgroundColor(types[1].type.name);
@@ -88,10 +87,12 @@ function Pokemon() {
 
     
   }, [name, colors]);
-
+  
+  console.log(pokemons.length)
+  console.log(backgroundColor)
   const onClickFavoritos = () => {
-   setCurti(!curti)
-   togglePokemon({...pokemon, name})
+    togglePokemon({...pokemon, name})
+
   }
   
    useEffect(() => {
@@ -101,9 +102,9 @@ function Pokemon() {
  
   return (
     <>
-      <Header color={backgroundColor} />
+      <Header color={colors.backgroundType[backgroundColor]} />
       <Container>
-        <PokemonsContainer color={backgroundColor}>
+        <PokemonsContainer color={colors.backgroundType[backgroundColor]}>
           <TitleContainer>
             <GoBack to="/">
               <BackIcon />
@@ -118,10 +119,10 @@ function Pokemon() {
             <a onClick={onClickFavoritos}>
           <CoracaoIcon />
             </a>
-            <TitlePokemon color={backgroundColor}>
+            <TitlePokemon color={colors.backgroundType[backgroundColor]}>
               {pokemon.specie}
             </TitlePokemon>
-            <IdPokemon color={backgroundColor}>{pokemon.number}</IdPokemon>
+            <IdPokemon color={colors.backgroundType[backgroundColor]}>{pokemon.number}</IdPokemon>
           </ContainerTitle>
           {pokemon.type && (
             <ContainerType>
@@ -154,18 +155,18 @@ function Pokemon() {
           </ContainerContent>
           <ContainerCaracter>There is a plant seed on its back right from the day this Pokémon is born. The seed slowly grows larger.</ContainerCaracter>
           <ContainerStats>
-            <TitleCharacters color={backgroundColor}>
+            <TitleCharacters color={colors.backgroundType[backgroundColor]}>
               Base Stats
             </TitleCharacters>
             {pokemon?.baseStats?.map((stat, index) => (
-              <RowStats color={backgroundColor} key={index}>
+              <RowStats color={colors.backgroundType[backgroundColor]} key={index}>
                 <strong>{baseStatsName[index]}</strong>
                 <span>
                   {'000'.substr(stat.toString().length)}
                   {stat}
                 </span>
 
-                <BarStatus percentage={stat} color={backgroundColor}>
+                <BarStatus percentage={stat} color={colors.backgroundType[backgroundColor]}>
                   <span />
                 </BarStatus>
               </RowStats>
