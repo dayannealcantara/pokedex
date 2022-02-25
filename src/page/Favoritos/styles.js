@@ -41,7 +41,7 @@ export const SearchContainer = styled.div`
   }
 `;
 
-export const ContainerMenu = styled(Link)`
+export const ContainerMenu = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
